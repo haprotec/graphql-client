@@ -22,7 +22,12 @@ namespace GraphQL.Client.Http {
 		/// <summary>
 		/// Gets the headers which should be sent with each request.
 		/// </summary>
-		public HttpRequestHeaders DefaultRequestHeaders => this.graphQLHttpHandler.HttpClient.DefaultRequestHeaders;
+		public HttpRequestHeaders DefaultRequestHeaders => this.HttpClient.DefaultRequestHeaders;
+
+		/// <summary>
+		/// the instance of <see cref="HttpClient"/> which is used internally
+		/// </summary>
+		public HttpClient HttpClient => this.graphQLHttpHandler.HttpClient;
 
 		/// <summary>
 		/// The GraphQL EndPoint to be used
@@ -102,7 +107,12 @@ namespace GraphQL.Client.Http {
 			this.graphQlHttpWebSocket = new GraphQLHttpWebSocket(_getWebSocketUri(), options);
 		}
 
-		internal GraphQLHttpClient(GraphQLHttpClientOptions options, HttpClient httpClient) {
+		/// <summary>
+		/// Creates a new instance
+		/// </summary>
+		/// <param name="options">The Options to be used</param>
+		/// <param name="httpClient">the <see cref="HttpClient"/> to be used</param>
+		public GraphQLHttpClient(GraphQLHttpClientOptions options, HttpClient httpClient) {
 			if (options == null) { throw new ArgumentNullException(nameof(options)); }
 			if (options.EndPoint == null) { throw new ArgumentNullException(nameof(options.EndPoint)); }
 			if (options.JsonSerializerSettings == null) { throw new ArgumentNullException(nameof(options.JsonSerializerSettings)); }
